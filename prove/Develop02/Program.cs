@@ -5,56 +5,65 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+        PromptGenerator promptGenerator = new PromptGenerator();
+        ThoughtGenerator thoughtGenerator = new ThoughtGenerator();
+        Journal journal = new Journal();
+        int UserInputMenu = 0;
+        List<string> menu = new List<String>
+        {   
+            "Please select one of the following choices:",
+            "1. Write",
+            "2. Display",
+            "3. Load",
+            "4. Save",
+            "5. Spiritual Thought",
+            "6. Quit",
+            "what would you like to do?"
+        };
 
-        int usersInput = -1;
+        Console.WriteLine("Welcome to the Journal program.");
 
-
-        while (usersInput != 5)
+        while (UserInputMenu != 6)
         {
-            Console.WriteLine("Please select one of the following Choices");
-            Console.WriteLine("1. Write");
-            Console.WriteLine("2. Display");
-            Console.WriteLine("3. Load");
-            Console.WriteLine("4. Save");
-            Console.WriteLine("5. Quit");
-            Console.Write("What would yoou like to do? ");
-            string num = Console.ReadLine();
-            usersInput = usersInput = int.Parse(num);
-
-            Journal journal1 = new Journal();
-
-            if (usersInput == 1)
+            foreach (string menuItem in menu)
             {
-                Console.WriteLine(">");
-                string text = Console.ReadLine();
-                
-                journal1.AddEntry();
+                Console.WriteLine(menuItem);
+            }
+            UserInputMenu = int.Parse(Console.ReadLine());
+
+            switch (UserInputMenu)
+            {
+                case 1:
+                    string prompt = promptGenerator.GetRandomPrompt();
+                    Console.WriteLine(prompt);
+                    Console.Write(">");
+                    string response = Console.ReadLine();
+                    string date = DateTime.Now.Date.ToString("MMM dd, yyyy");
+
+                    Entry entry = new Entry(date, prompt, response);
+                    journal.AddEntry(entry);
+                    break;
+                case 2:
+                    journal.DisplayAll();
+                    break;
+                case 3:
+                    Console.WriteLine("Name of file to load? ");
+                    string fileNameLoad = Console.ReadLine();
+                    journal.LoadFromFile(fileNameLoad);
+                    break;
+                case 4:
+                    Console.WriteLine("Name of file to save? ");
+                    string fileNameSave = Console.ReadLine();
+                    journal.SaveToFile(fileNameSave);
+                    break;
+                case 5:
+                    string thought = thoughtGenerator.GetRandomThought();
+                    Console.WriteLine(thought);
+                    break; 
 
             }
-
-            else if (usersInput == 2)
-            {
-                journal1.Display();
-            }
-            else if (usersInput == 3)
-            {
-                Console.Write("What is the file name? ");
-                string file = Console.ReadLine();
-
-                journal1.LoadFromFile(file);
-
-            }
-            else if (usersInput == 4)
-            {
-                Console.Write("Please enter the file name: ");
-                string file = Console.ReadLine();
-                
-                journal1.SaveToFile(file);
-            }
-
-
         }
+
 
     }
 }

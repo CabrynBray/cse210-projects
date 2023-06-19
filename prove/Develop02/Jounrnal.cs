@@ -1,37 +1,48 @@
 using System.IO; 
 
-public class Journal
+class Journal
 {
-    public List<Entry> _entries = new List<Entry>();
+    List<Entry> entries;
+
+    public Journal()
+    {
+        entries = new List<Entry>();
+    }
 
     public void AddEntry(Entry newEntry)
     {
-        
+        entries.Add(newEntry);
     }
 
-    public void Display()
+    public void DisplayAll()
     {
-        Console.WriteLine($"Your entry: {_entries}");
-    }
-
-    public void SaveToFile(string file)
-    {
-        using (StreamWriter outputFile = new StreamWriter(file))
+        foreach (Entry entry in entries)
         {
-            foreach (Entry e in _entries)
-            {
-                outputFile.WriteLine($"{e._entryText}~~");
-
-            }
+            entry.Display();
+            Console.WriteLine();
         }
+    }
+
+    public void SaveToFile(string _file)
+    {
+        List<string> records = new List<string>();
+        foreach (Entry entry in entries)
+        {
+            string entryAsCSV = $"{entry.date}|{entry.prompText}|{entry.entryText}";
+            records.Add(entryAsCSV);
+        }
+        File.WriteAllLines(_file, records);
     }
 
     public void LoadFromFile(string file)
     {
-        string[] lines = System.IO.File.ReadAllLines(file);
-        foreach (string line in lines)
+        List<string> records = File.ReadAllLines(file).ToList();
+        foreach (string record in records)
         {
-            Console.WriteLine(line);
+            string[] splitString = record.Split("|");
+            Entry entry = new Entry(splitString[0], splitString[1], splitString[2]);
+
+            entries.Add(entry);
         }
     }
 }
