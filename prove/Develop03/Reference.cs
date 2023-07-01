@@ -1,65 +1,36 @@
-public class Verse
+public class Reference
     {
-        private string _verse;
-        private List<Word> _words = new List<Word>();
-        private List<int> _hiddenIndexes = new List<int>();
+        private string book;
+        private int chapter, verse, endVerse;
 
-        public Verse(string verse) 
+        public Reference(string _book, int _chapter, int _verse)
         {
-            _verse = verse;
-            CreateWords();
+            book        = _book;
+            chapter     = _chapter;
+            verse       = _verse;
         }
 
-        private void CreateWords()
+        public Reference(string _book, int _chapter, int _verseStart, int _verseEnd)
         {
-            string[] splitWords = 
-                _verse.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string word in splitWords)
-            {
-                Word newWord = new Word(word);
-                _words.Add(newWord);
-            }
+            book        = _book;
+            chapter     = _chapter;
+            verse       = _verseStart;
+            endVerse    = _verseEnd;
         }
 
-        public void DisplayVerse()
+        public string GetDisplayText()
         {
-            foreach (Word word in _words)
-            {
-                word.DisplayWord();
-                Console.Write(" ");
-            }
-        }
+            string referenceDisplay = "";
 
-        private int GetRandomIndex(int maximum)
-        {
-            Random random = new Random();
-            int randomIndex = random.Next(0, maximum);
-            while (_hiddenIndexes.Contains(randomIndex))
+            if (endVerse != 0)
             {
-                randomIndex = random.Next(0, maximum);
+                referenceDisplay = $"{book} {chapter}:{verse}-{endVerse}";
             }
-            _hiddenIndexes.Add(randomIndex);
+            else
+            {
+                referenceDisplay = $"{book} {chapter}:{verse}";
+            }
 
-            return randomIndex;
-        }
-
-        public void HideWords()
-        {
-            int numToHide = 3;
-            
-            if (_words.Count == _hiddenIndexes.Count)
-            {
-                return;
-            }
-            else if (_words.Count - 3 <= _hiddenIndexes.Count)
-            {
-                numToHide = _words.Count - _hiddenIndexes.Count;
-            }
-            
-            for (int i = 0; i < numToHide; i++)
-            {
-                _words[GetRandomIndex(_words.Count)].HideWord();
-            }
+            return referenceDisplay; 
         }
     }

@@ -3,52 +3,32 @@ using System;
 
     public class Word
     {
-        private string _word;
-        private string _hiddenWord = "";
-        private bool _isHidden = false;
+        private string text = "";
+        private bool isHidden;
 
-        public Word(string word) 
+        public Word(string _text)
         {
-            _word = word;
-
-            CreateHiddenWord();
+            text = _text; 
         }
 
-        private void CreateHiddenWord()
+        public void Hide()
         {
-            foreach (char letter in _word)
-            {
-                if (letter != '.' || letter != '!' || letter != '?' || 
-                    letter != ',' || letter != ':' || letter != ';')
-                {
-                    _hiddenWord += "_";
-                }
-                else
-                {
-                    _hiddenWord += letter;
-                }
-            }
+            isHidden = true; 
         }
 
-        public void DisplayWord()
+        public void Show()
         {
-            if (_isHidden)
-            {
-                Console.Write(_hiddenWord);
-            }
-            else
-            {
-                Console.Write(_word);
-            }
+            isHidden = false; 
         }
 
-        public void HideWord()
+        public bool GetIsHidden()
         {
-            _isHidden = true;
+            return isHidden;
         }
 
-        public void ShowWord()
+        public string GetDisplayText()
         {
-            _isHidden = false;
+            return text; 
         }
+
     }

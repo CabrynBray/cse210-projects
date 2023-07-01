@@ -4,36 +4,40 @@ class Program
 {
     static void Main(string[] args)
     {
-            Book book = new Book();
+        Console.Write("Please enter the scripture name: ");
+        string name = Console.ReadLine();
+        Console.Write("Please enter the chapter: ");
+        int chapter = int.Parse(Console.ReadLine());
+        Console.Write("Please enter the start chapter: ");
+        int start = int.Parse(Console.ReadLine());
+        Console.Write("Please enter the end chapter (if non pleses enter 0): ");
+        int end = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Welcome to the Scripture Memorizer\n");
-            Console.WriteLine("Choose a random verse (1) or use your own (2)? ");
-            string input = Console.ReadLine();
+        Console.Write("Please enter the vesre: ");
+        string verse = Console.ReadLine();
 
-            if (input == "1")
-            {
-                book.ChooseScripture();
-            }
-            else
-            {
-                book.InputNewScripture();
-            }
+            
+        string userInput = "";
 
-            Scripture scripture = new Scripture(book.GetScripture());
+        Reference reference = new Reference(name, chapter, start, end);
+        Scripture scripture = new Scripture(reference, verse);
 
-            scripture.DisplayScripture();
-            Console.WriteLine("Press enter to hide words, or 'quit' to exit.");
-            input = Console.ReadLine();
-            while (input != "quit")
-            {
-                Console.Clear();
-                scripture.HideWords();
-                scripture.DisplayScripture();
+        while (userInput != "quit" && !scripture.IsCompletelyHidden())
+        {
+            Console.Clear();
+            Console.WriteLine(scripture.GetDisplayText());
+            Console.WriteLine();
+            Console.WriteLine("Press enter to continue or type quit to finish");
+            userInput = Console.ReadLine();
 
-                Console.WriteLine("Press enter to hide words, or 'quit' to exit.");
-                input = Console.ReadLine();
-
-                
+            scripture.HideRandomWords();
         }
+        Console.Clear();
+
+        Console.WriteLine(scripture.GetDisplayText());
+        Console.WriteLine("");
+        Console.WriteLine("Thank you for playing");
+
+
     }
 }
