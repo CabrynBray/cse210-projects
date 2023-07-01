@@ -8,9 +8,9 @@ class Program
         string name = Console.ReadLine();
         Console.Write("Please enter the chapter: ");
         int chapter = int.Parse(Console.ReadLine());
-        Console.Write("Please enter the start chapter: ");
+        Console.Write("Please enter the start verse: ");
         int start = int.Parse(Console.ReadLine());
-        Console.Write("Please enter the end chapter (if non pleses enter 0): ");
+        Console.Write("Please enter the end verse (if non pleses enter 0): ");
         int end = int.Parse(Console.ReadLine());
 
         Console.Write("Please enter the vesre: ");
