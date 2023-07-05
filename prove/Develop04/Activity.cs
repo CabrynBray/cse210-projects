@@ -83,6 +83,6 @@ class Activity
 
         }
 
-        Console.Write(" ");
+        Console.Write("  ");
     }
 }
