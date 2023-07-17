@@ -1,0 +1,2 @@
+ChecklistGoal:||-|-|-0|-0|-0
+SimpleGoal:||-|-|-False
