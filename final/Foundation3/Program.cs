@@ -15,7 +15,12 @@ class Program
         receptionEvent.DisplayStanderdDetails();
         receptionEvent.GetFullDetails();
         receptionEvent.GetShortDescription();
-        
+
+        Address address3 = new Address("987 main", "NY", "NY", "USA");
+        OutDoorGaterings OutDoorEvent = new OutDoorGaterings("Nadia's Home coming", "Nadia is come home for christmas", "2024/12/24", "2pm", address3, "sunny");
+        OutDoorEvent.DisplayStanderdDetails();
+        OutDoorEvent.GetFullDetails();
+        OutDoorEvent.GetShortDescription();
 
     }
 }
