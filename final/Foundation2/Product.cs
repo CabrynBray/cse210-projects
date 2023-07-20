@@ -12,7 +12,8 @@ public class Product
         _productQuantity = productQuantity;
         _productPrice = productPrice;
     }
-    public string productInfo()
+
+    public string GetProductInfo()
     {
         return $"{_productName} - {_productQuantity} - {_productId} - {_productPrice}";
     }

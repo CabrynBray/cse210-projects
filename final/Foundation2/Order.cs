@@ -1,71 +1,82 @@
+using System;
 public class Order
 {
-    private List<Product> _products = new List<Product>();
-    private Customer _customer = new Customer("");
+    private List<Product> _products;
+    public Customer _customer { get; private set; }
     private double _cost;
 
     public Order()
     {
-       // _products = new List<Product>();
+        _products = new List<Product>();
+        _customer = new Customer("");
     }
-    public List<Product> GetProducts()
+
+    public void SetCustomer(Customer customer)
     {
-        return _products;
+        _customer = customer;
     }
 
     public void AddProduct(Product product)
     {
         _products.Add(product);
     }
+
     public void CalculateTotalPrice()
     {
         _cost = 0;
-        Console.WriteLine("_____Totlal Price______");
-        foreach(Product product in _products)
+        Console.WriteLine("_____Total Price______");
+        foreach (Product product in _products)
         {
             double price = product.GetPrice();
-            _cost = _cost + price;
+            _cost += price;
         }
-        if (_customer.IsUSA() == true)
+
+        if (_customer._address != null && _customer._address.IsUSA())
         {
-            _cost = _cost + 5;
+            _cost += 5;
             Console.WriteLine("Your Shipping is: $5");
         }
-        else if (_customer.IsUSA() == false)
+        else
         {
-            _cost = _cost + 35;
+            _cost += 35;
             Console.WriteLine("Your Shipping is: $35");
         }
+
         Console.WriteLine();
         Console.WriteLine($"Total Price: {_cost}");
         Console.WriteLine();
     }
-    public void GetPackingLable()
+
+    public void GetPackingLabel()
     {
         Console.WriteLine();
         Console.WriteLine("_____________________");
-        Console.WriteLine("----Packing Lable----");
+        Console.WriteLine("----Packing Label----");
         int i = 1;
-        foreach(Product product in _products)
+
+        foreach (Product product in _products)
         {
-            Console.WriteLine($"{i}. {product.productInfo()}");
-            i = i + 1; 
+            Console.WriteLine($"{i}. {product.GetProductInfo()}");
+            i++;
         }
-        Console.WriteLine();
-        Console.WriteLine($"{_cost}");
-        Console.WriteLine();
-        Console.WriteLine("_____________________");
-    }
-    public void GetShippingLabel()
-    {
-        Console.WriteLine();
-        Console.WriteLine("_____________________");
-        Console.WriteLine("----Shipping Label----");
-        
-        Console.WriteLine($"{_customer.GetName()}");
-        Console.WriteLine($"{_customer.GetAddress().DisplayAddress()}");
 
         Console.WriteLine();
+        Console.WriteLine($"Total Cost: {_cost}");
+        Console.WriteLine();
         Console.WriteLine("_____________________");
     }
+
+    public void GetShippingLabel()
+{
+    Console.WriteLine();
+    Console.WriteLine("_____________________");
+    Console.WriteLine("----Shipping Label----");
+    Console.WriteLine(_customer._name);
+    if (_customer._address != null)
+    {
+        _customer._address.DisplayAddress();
+    }
+    Console.WriteLine();
+    Console.WriteLine("_____________________");
+}
 }

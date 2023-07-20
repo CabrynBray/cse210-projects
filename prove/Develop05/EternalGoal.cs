@@ -1,32 +1,22 @@
-
 public class EternalGoals : Goal
 {
-    private string _points, _name, _description;
-    public EternalGoals(string name, string description, string points) 
+    public EternalGoals(string name, string description, int points)
         : base(name, description, points)
-        {
-            _points = points;
-            _name = name;
-            _description = description;
-        }
+    {
+    }
 
     public override void RecordEvent()
     {
-
+        // No need to record event for eternal goals
     }
 
     public override bool IsComplete()
     {
-        return false;
-    }
-
-    public override string GetDetailsString()
-    {
-        return base.GetDetailsString();
+        return false; // Eternal goals are never complete
     }
 
     public override string GetStringRepresentation()
     {
-        return $"EternalGoal:|{_name}|-{_description}|-{_points}";
+        return $"EternalGoals|{GetName()}|{GetDiscription()}|{GetPoints()}";
     }
 }

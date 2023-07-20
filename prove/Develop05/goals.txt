@@ -1,1 +1,4 @@
-SimpleGoal:||-|-|-False
+50
+SimpleGoal|simple goals test|to test the simple goal|10|True
+EternalGoals|Eternal goal test|to tset eternal goal|10
+ChecklistGoal|checklist goal test|to test checklist goal|10|3|100|3

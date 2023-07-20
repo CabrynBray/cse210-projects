@@ -1,23 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 public abstract class Goal
 {
-    private string _shortName;
+    private string _name;
     private string _description;
-    private string _points;
+    private int _points;
 
-    public Goal(string name, string description, string points)
+    public Goal(string name, string description, int points)
     {
-        _shortName = name;
+        _name = name;
         _description = description;
         _points = points;
     }
+
     public string GetName()
     {
-        return _shortName;
+        return _name;
     }
-    public string GetPoints()
+    public string GetDiscription()
     {
-       return _points;
+        return _description;
+    }
+
+    public int GetPoints()
+    {
+        return _points;
     }
 
     public abstract void RecordEvent();
@@ -26,14 +35,8 @@ public abstract class Goal
 
     public virtual string GetDetailsString()
     {
-        if (IsComplete() == false)
-        {
-            return $"[ ] {_shortName} ({_description})";
-        }
-        else
-        {
-            return $"[X] {_shortName} ({_description})";
-        }
+        string completionStatus = IsComplete() ? "[X]" : "[ ]";
+        return $"{completionStatus} {_name} ({_description})";
     }
 
     public abstract string GetStringRepresentation();
